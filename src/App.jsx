@@ -9,7 +9,7 @@ import BellVerification from './components/BellVerification';
 import RealWorldApplication from './components/RealWorldApplication';
 import MethodologyAndLimitations from './components/MethodologyAndLimitations';
 import DataIntegrationModal from './components/DataIntegrationModal';
-import { Database, GitBranch, ShieldCheck } from 'lucide-react';
+import { Database, GitBranch, Radio } from 'lucide-react';
 
 export default function App() {
   const [instances, setInstances] = useState(null);
@@ -22,7 +22,6 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [dataModalOpen, setDataModalOpen] = useState(false);
 
-  // Fetch all JSON datasets on mount from public/data/
   useEffect(() => {
     async function loadAllDatasets() {
       try {
@@ -58,22 +57,21 @@ export default function App() {
     loadAllDatasets();
   }, []);
 
-  // Update Processor D (e.g. when user pastes a custom validated JSON)
   const handleUpdateProcessorD = (newD) => {
     setProcessorD(newD);
   };
 
   return (
-    <div className="min-h-screen bg-[#060911] text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#06090e] text-slate-100 flex flex-col font-sans">
       {/* Navigation */}
       <Navbar onOpenDataModal={() => setDataModalOpen(true)} />
 
       {/* Main Content Sections */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-16">
-        {/* Section A: Project Overview */}
+        {/* Section A: Project Overview with the Wireless Transmitter Narrative */}
         <ProjectOverview benchmarkData={benchmarkResults} />
 
-        {/* Section B: Interactive Weighted Max-Cut Graph */}
+        {/* Section B: Interactive Transmitter & Max-Cut Graph */}
         <InteractiveMaxCut instanceData={instances} />
 
         {/* Section C: How QAOA Works */}
@@ -92,24 +90,25 @@ export default function App() {
         {/* Section F: Bell-State Verification */}
         <BellVerification bellData={bellResults} />
 
-        {/* Section G: Real-World Application */}
+        {/* Section G: Real-World Extended Application */}
         <RealWorldApplication applicationData={applicationNetwork} />
 
         {/* Section H: Methodology & Limitations */}
         <MethodologyAndLimitations />
       </main>
 
-      {/* Lab Footer */}
-      <footer className="border-t border-slate-800/80 bg-[#070b14] py-8 px-4 lg:px-8 text-xs text-slate-400 mt-16">
+      {/* Footer with High Contrast */}
+      <footer className="border-t border-carbon-750 bg-[#090d15] py-8 px-4 lg:px-8 text-xs text-slate-400 mt-16">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="space-y-1 text-center md:text-left">
-            <div className="font-bold text-slate-200 flex items-center justify-center md:justify-start gap-2">
-              <span>QAOA Lab — Quantum-Aware Network Partitioning</span>
-              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800">
+            <div className="font-bold text-slate-100 flex items-center justify-center md:justify-start gap-2">
+              <Radio className="w-4 h-4 text-solar-400" />
+              <span>Spectrum QAOA — Transmitter Co-Channel Optimization</span>
+              <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-solar-950 text-solar-300 border border-solar-700 font-bold">
                 Team HACKSMITHS
               </span>
             </div>
-            <p className="text-[11px] text-slate-500">
+            <p className="text-[11px] text-slate-400 font-mono">
               Qiskit Fall Fest 2026 Phase 2 · Problem Statement PS-O1 (Weighted Max-Cut with QAOA)
             </p>
           </div>
@@ -117,18 +116,18 @@ export default function App() {
           <div className="flex items-center gap-4">
             <button
               onClick={() => setDataModalOpen(true)}
-              className="hover:text-cyan-400 flex items-center gap-1 font-mono transition-colors"
+              className="hover:text-solar-400 flex items-center gap-1 font-mono font-semibold transition-colors"
             >
-              <Database className="w-3.5 h-3.5" />
+              <Database className="w-3.5 h-3.5 text-solar-400" />
               <span>Data Files Inspector</span>
             </button>
             <a
-              href="https://github.com/Abheek-07/qff-2026-ps-o1"
+              href="https://github.com/NAKSHATRA051188/qaoa-lab-ps-o1"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-purple-400 flex items-center gap-1 font-medium transition-colors"
+              className="hover:text-mint-400 flex items-center gap-1 font-semibold transition-colors"
             >
-              <GitBranch className="w-3.5 h-3.5" />
+              <GitBranch className="w-3.5 h-3.5 text-mint-400" />
               <span>GitHub Repository</span>
             </a>
           </div>
@@ -151,4 +150,3 @@ export default function App() {
     </div>
   );
 }
-

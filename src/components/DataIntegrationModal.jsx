@@ -3,12 +3,9 @@ import {
   X, 
   Database, 
   FileCode, 
-  CheckCircle2, 
-  Clock, 
-  Copy, 
   Check, 
-  Code2, 
-  ExternalLink 
+  Copy,
+  Radio
 } from 'lucide-react';
 
 export default function DataIntegrationModal({ 
@@ -43,7 +40,7 @@ export default function DataIntegrationModal({
     'instances.json': {
       title: 'instances.json',
       status: 'LOCKED',
-      desc: 'Locked official 6-vertex, 9-weighted-edge problem instance for PS-O1 with classical optimum 22.',
+      desc: 'Locked official 6-vertex, 9-weighted-edge problem instance for PS-O1 with classical optimum 22.0.',
       data: allDatasets.instances,
     },
     'bell_results.json': {
@@ -70,18 +67,18 @@ export default function DataIntegrationModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in">
-      <div className="relative w-full max-w-4xl max-h-[85vh] bg-[#090d16] border border-slate-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-        {/* Modal Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800/80 bg-slate-950/80">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-in fade-in">
+      <div className="relative w-full max-w-4xl max-h-[85vh] bg-carbon-900 border border-carbon-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-carbon-750 bg-carbon-950">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-cyan-300">
+            <div className="w-8 h-8 rounded-lg bg-solar-500/20 border border-solar-500/40 flex items-center justify-center text-solar-400">
               <Database className="w-4 h-4" />
             </div>
             <div>
               <h3 className="text-sm font-bold text-white font-mono flex items-center gap-2">
                 <span>Data Architecture & File Inspector</span>
-                <span className="text-[10px] text-cyan-400 bg-cyan-950/60 border border-cyan-800/60 px-2 py-0.5 rounded-full font-mono">
+                <span className="text-[10px] text-solar-400 bg-solar-950 border border-solar-500/40 px-2 py-0.5 rounded-full font-mono">
                   public/data/
                 </span>
               </h3>
@@ -93,17 +90,17 @@ export default function DataIntegrationModal({
 
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-carbon-800 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Modal Body */}
+        {/* Body */}
         <div className="flex-1 overflow-hidden grid grid-cols-1 md:grid-cols-12">
-          {/* File Selector Sidebar (4 cols) */}
-          <div className="md:col-span-4 border-r border-slate-800/80 p-3 space-y-1.5 overflow-y-auto bg-slate-950/40">
-            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 px-2 py-1">
+          {/* File Selector */}
+          <div className="md:col-span-4 border-r border-carbon-750 p-3 space-y-1.5 overflow-y-auto bg-carbon-950">
+            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold px-2 py-1">
               Active Input Files
             </div>
             {Object.entries(fileMap).map(([key, item]) => {
@@ -114,20 +111,20 @@ export default function DataIntegrationModal({
                   onClick={() => setSelectedFile(key)}
                   className={`w-full text-left p-2.5 rounded-xl text-xs font-mono transition-all flex flex-col gap-1 ${
                     isSelected
-                      ? 'bg-slate-800 border border-cyan-500/60 text-cyan-200'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60 border border-transparent'
+                      ? 'bg-carbon-850 border border-solar-500/80 text-solar-300 font-bold shadow-md'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-carbon-900 border border-transparent'
                   }`}
                 >
                   <div className="flex justify-between items-center">
-                    <span className="font-bold text-white truncate">{key}</span>
+                    <span className="truncate">{key}</span>
                     <span className={`text-[9px] px-1.5 py-0.5 rounded font-bold ${
                       item.status === 'LOCKED'
-                        ? 'bg-blue-950 text-blue-300 border border-blue-800'
+                        ? 'bg-solar-950 text-solar-300 border border-solar-700'
                         : item.status === 'VERIFIED'
-                        ? 'bg-emerald-950 text-emerald-300 border border-emerald-800'
+                        ? 'bg-mint-950 text-mint-300 border border-mint-700'
                         : item.status === 'IN_PROGRESS'
-                        ? 'bg-purple-950 text-purple-300 border border-purple-800'
-                        : 'bg-amber-950 text-amber-300 border border-amber-800'
+                        ? 'bg-crimson-950 text-crimson-300 border border-crimson-800'
+                        : 'bg-carbon-800 text-slate-300 border border-carbon-700'
                     }`}>
                       {item.status}
                     </span>
@@ -138,38 +135,37 @@ export default function DataIntegrationModal({
             })}
           </div>
 
-          {/* JSON Preview Stage (8 cols) */}
-          <div className="md:col-span-8 p-4 flex flex-col justify-between overflow-hidden bg-[#070a12]">
+          {/* JSON Preview */}
+          <div className="md:col-span-8 p-4 flex flex-col justify-between overflow-hidden bg-carbon-950">
             <div className="space-y-2 mb-3">
               <div className="flex justify-between items-center">
-                <span className="font-mono text-xs font-bold text-cyan-300 flex items-center gap-1.5">
+                <span className="font-mono text-xs font-bold text-solar-300 flex items-center gap-1.5">
                   <FileCode className="w-4 h-4" />
                   <span>{current.title}</span>
                 </span>
                 <button
                   onClick={handleCopy}
-                  className="flex items-center gap-1 px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-mono transition-colors border border-slate-700"
+                  className="flex items-center gap-1 px-2.5 py-1 rounded bg-carbon-800 hover:bg-carbon-750 text-slate-200 text-xs font-mono transition-colors border border-carbon-700 font-bold"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-mint-400" /> : <Copy className="w-3.5 h-3.5" />}
                   <span>{copied ? 'Copied' : 'Copy JSON'}</span>
                 </button>
               </div>
               <p className="text-xs text-slate-400 leading-relaxed">{current.desc}</p>
             </div>
 
-            {/* Code Box */}
-            <div className="flex-1 overflow-auto rounded-xl bg-slate-950 border border-slate-800 p-3 font-mono text-[11px] text-slate-300 select-all">
+            <div className="flex-1 overflow-auto rounded-xl bg-carbon-900 border border-carbon-800 p-3 font-mono text-[11px] text-slate-200 select-all">
               <pre>{jsonString}</pre>
             </div>
           </div>
         </div>
 
-        {/* Modal Footer */}
-        <div className="px-6 py-3 border-t border-slate-800/80 bg-slate-950/80 flex justify-between items-center text-xs text-slate-400">
-          <span>Decoupled architecture: drop updated JSONs into <code className="font-mono text-cyan-300">public/data/</code></span>
+        {/* Footer */}
+        <div className="px-6 py-3 border-t border-carbon-750 bg-carbon-950 flex justify-between items-center text-xs text-slate-400 font-mono">
+          <span>Decoupled Contract: files live in <code className="text-solar-400 font-bold">public/data/</code></span>
           <button
             onClick={onClose}
-            className="px-4 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium"
+            className="px-4 py-1.5 rounded-lg bg-carbon-800 hover:bg-carbon-750 text-slate-200 text-xs font-bold"
           >
             Close
           </button>
@@ -178,4 +174,3 @@ export default function DataIntegrationModal({
     </div>
   );
 }
-
