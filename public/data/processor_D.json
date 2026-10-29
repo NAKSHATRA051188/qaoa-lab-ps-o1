@@ -1,0 +1,19 @@
+{
+  "name": "Processor D",
+  "team": "HACKSMITHS",
+  "problem_statement": "PS-O1",
+  "status": "DESIGN_IN_PROGRESS",
+  "is_design_in_progress": true,
+  "notice": "Processor D — Design in progress. Benchmark results pending.",
+  "num_qubits": 6,
+  "edges": [],
+  "basis_gates": ["rz", "sx", "x", "cx"],
+  "noise": {
+    "model": "official",
+    "p1": 0.001,
+    "p2": 0.005,
+    "p_readout": 0.01
+  },
+  "design_rationale": "Hardware topology proposal targeting the 9 interaction edges of the PS-O1 Max-Cut problem graph to eliminate routing SWAP overhead and reduce two-qubit gate depth. Custom topology synthesis and validation currently underway by technical lead."
+}
+

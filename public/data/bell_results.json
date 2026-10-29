@@ -1,0 +1,72 @@
+{
+  "_schema_version": "1.0.0",
+  "bell_state": "|Phi+> = (|00> + |11>) / sqrt(2)",
+  "formula": "F = (1 + <XX> - <YY> + <ZZ>) / 4",
+  "shots": 4096,
+  "processors": {
+    "B": {
+      "name": "Processor B",
+      "status": "VERIFIED_MEASUREMENT",
+      "adjacent_pair": {
+        "pair": [0, 1],
+        "distance": 1,
+        "ideal": {
+          "XX": 1.0,
+          "XX_se": 0.0,
+          "YY": -1.0,
+          "YY_se": 0.0,
+          "ZZ": 1.0,
+          "ZZ_se": 0.0,
+          "fidelity": 1.0,
+          "fidelity_se": 0.0,
+          "cx": 1
+        },
+        "noisy": {
+          "XX": 0.957,
+          "XX_se": 0.0045,
+          "YY": -0.959,
+          "YY_se": 0.0044,
+          "ZZ": 0.961,
+          "ZZ_se": 0.0043,
+          "fidelity": 0.9692,
+          "fidelity_se": 0.0038,
+          "cx": 1
+        }
+      },
+      "farthest_pair": {
+        "pair": [0, 4],
+        "distance": 3,
+        "ideal": {
+          "XX": 1.0,
+          "XX_se": 0.0,
+          "YY": -1.0,
+          "YY_se": 0.0,
+          "ZZ": 1.0,
+          "ZZ_se": 0.0,
+          "fidelity": 1.0,
+          "fidelity_se": 0.0,
+          "cx": 7
+        },
+        "noisy": {
+          "XX": 0.864,
+          "XX_se": 0.0078,
+          "YY": -0.861,
+          "YY_se": 0.0079,
+          "ZZ": 0.872,
+          "ZZ_se": 0.0077,
+          "fidelity": 0.8992,
+          "fidelity_se": 0.0067,
+          "cx": 7
+        }
+      }
+    },
+    "D": {
+      "name": "Processor D",
+      "status": "PENDING_MEASUREMENT",
+      "notice": "Awaiting execution of bell_experiment() on Processor D physical topology from technical lead.",
+      "adjacent_pair": null,
+      "farthest_pair": null
+    }
+  }
+}
+

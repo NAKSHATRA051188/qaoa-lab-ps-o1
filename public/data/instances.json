@@ -1,0 +1,41 @@
+{
+  "_note": "QFF 2026 Phase 2 Optimization Track - Locked PS-O1 instance. Source: instances.json",
+  "problem_statement": "PS-O1",
+  "title": "Weighted Max-Cut using QAOA",
+  "num_vertices": 6,
+  "weighted_edges": [
+    {"source": 0, "target": 2, "weight": 1},
+    {"source": 0, "target": 3, "weight": 4},
+    {"source": 0, "target": 4, "weight": 4},
+    {"source": 1, "target": 4, "weight": 3},
+    {"source": 1, "target": 5, "weight": 3},
+    {"source": 2, "target": 3, "weight": 5},
+    {"source": 2, "target": 4, "weight": 1},
+    {"source": 3, "target": 4, "weight": 4},
+    {"source": 3, "target": 5, "weight": 2}
+  ],
+  "total_weight": 27,
+  "classical_optimum": 22,
+  "random_expected_cut": 13.5,
+  "optimal_assignments": [
+    "001011",
+    "110100"
+  ],
+  "qaoa_depth": "p=1 required; p=2 optional",
+  "min_initializations": 5,
+  "initialization_seeds": [0, 1, 2, 3, 4],
+  "shots": 4096,
+  "benchmark_settings": {
+    "basis_gates": ["rz", "sx", "x", "cx"],
+    "optimization_level": 1,
+    "layout_routing": "SABRE",
+    "seed_transpiler": 42,
+    "seed_simulator": 42,
+    "noise": {
+      "p1_depolarizing": 0.001,
+      "p2_depolarizing_cx": 0.005,
+      "readout_bitflip": 0.01
+    }
+  }
+}
+

@@ -1,0 +1,69 @@
+{
+  "_schema_version": "1.0.0",
+  "problem_statement": "PS-O1",
+  "problem_optimum": 22,
+  "random_baseline_cut": 13.5,
+  "total_weight": 27,
+  "shots": 4096,
+  "processors": {
+    "A": {
+      "name": "Processor A",
+      "executable": false,
+      "status": "NOT_EXECUTABLE",
+      "physical_qubits": 5,
+      "logical_qubits_required": 6,
+      "reason": "Official PS-O1 instance contains 6 vertices requiring 6 logical qubits. Processor A has only 5 physical qubits. Eliminating variables or symmetry-fixing alters the benchmark ansatz and is not permissible for official PS-O1 evaluation."
+    },
+    "B": {
+      "name": "Processor B",
+      "executable": true,
+      "status": "VERIFIED_MEASUREMENT",
+      "verified": true,
+      "physical_qubits": 9,
+      "logical_qubits": 6,
+      "coupling_edges_count": 12,
+      "ideal": {
+        "mean_cut": 11.9789,
+        "approx_ratio": 0.544495,
+        "best_cut": 16,
+        "best_cut_approx_ratio": 0.72727,
+        "optimal_probability": 0.14667,
+        "depth": 38,
+        "two_q_depth": 21,
+        "cx": 21,
+        "logical_cx": 18,
+        "cx_overhead": 3,
+        "swaps": 1,
+        "execution_time_ms": 142
+      },
+      "noisy": {
+        "mean_cut": 11.7061,
+        "approx_ratio": 0.532095,
+        "best_cut": 16,
+        "best_cut_approx_ratio": 0.72727,
+        "optimal_probability": 0.13574,
+        "depth": 38,
+        "two_q_depth": 21,
+        "cx": 21,
+        "logical_cx": 18,
+        "cx_overhead": 3,
+        "swaps": 1,
+        "execution_time_ms": 189
+      },
+      "source_reference": "Qiskit Aer simulator, AerSimulator noise_model=official_noise_model(), seed=42, opt_level=1, 4096 shots"
+    },
+    "D": {
+      "name": "Processor D",
+      "executable": true,
+      "status": "PENDING_MEASUREMENT",
+      "verified": false,
+      "physical_qubits": null,
+      "logical_qubits": 6,
+      "notice": "Not yet benchmarked",
+      "ideal": null,
+      "noisy": null,
+      "source_reference": "Awaiting execution script output from quantum team lead"
+    }
+  }
+}
+

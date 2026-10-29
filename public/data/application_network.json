@@ -1,0 +1,130 @@
+{
+  "_notice": "ILLUSTRATIVE SYNTHETIC DATASET — Cellular Tower Interference Model",
+  "application_title": "Wireless Interference-Aware Channel Allocation",
+  "scenario": "Hypothetical 6-Sector Urban Cellular Network Frequency Reuse",
+  "model_type": "Conflict Graph Partitioning (2-Frequency Band Assignment: Band A vs Band B)",
+  "disclaimer": "This is an illustrative research demonstration demonstrating the translation of Max-Cut to co-channel interference minimization. It does not reflect deployed telecommunications infrastructure or claim actual network-speed improvements.",
+  "nodes": [
+    {
+      "id": 0,
+      "name": "Tower A (Downtown Core)",
+      "type": "Macrocell",
+      "sector": "North-West",
+      "tx_power_dbm": 46,
+      "traffic_weight": 4,
+      "x": 120,
+      "y": 140
+    },
+    {
+      "id": 1,
+      "name": "Tower B (Financial District)",
+      "type": "Macrocell",
+      "sector": "North-East",
+      "tx_power_dbm": 46,
+      "traffic_weight": 5,
+      "x": 380,
+      "y": 120
+    },
+    {
+      "id": 2,
+      "name": "Tower C (Transit Terminal)",
+      "type": "Small Cell",
+      "sector": "Central Hub",
+      "tx_power_dbm": 33,
+      "traffic_weight": 3,
+      "x": 250,
+      "y": 240
+    },
+    {
+      "id": 3,
+      "name": "Tower D (Tech Corridor)",
+      "type": "Macrocell",
+      "sector": "South-West",
+      "tx_power_dbm": 43,
+      "traffic_weight": 4,
+      "x": 100,
+      "y": 380
+    },
+    {
+      "id": 4,
+      "name": "Tower E (Medical Campus)",
+      "type": "Small Cell",
+      "sector": "Central-South",
+      "tx_power_dbm": 30,
+      "traffic_weight": 4,
+      "x": 260,
+      "y": 420
+    },
+    {
+      "id": 5,
+      "name": "Tower F (Residential Heights)",
+      "type": "Macrocell",
+      "sector": "South-East",
+      "tx_power_dbm": 43,
+      "traffic_weight": 2,
+      "x": 400,
+      "y": 360
+    }
+  ],
+  "edges": [
+    {
+      "source": 0,
+      "target": 1,
+      "weight": 3,
+      "conflict_reason": "High beam overlap in high-density canyon corridor"
+    },
+    {
+      "source": 0,
+      "target": 2,
+      "weight": 5,
+      "conflict_reason": "Direct line-of-sight small cell interference with downtown macrocell"
+    },
+    {
+      "source": 1,
+      "target": 2,
+      "weight": 4,
+      "conflict_reason": "Adjacent channel leakage across terminal approach"
+    },
+    {
+      "source": 1,
+      "target": 5,
+      "weight": 2,
+      "conflict_reason": "Sidelobe coupling along eastern expressway"
+    },
+    {
+      "source": 2,
+      "target": 3,
+      "weight": 3,
+      "conflict_reason": "Border handover region boundary conflict"
+    },
+    {
+      "source": 2,
+      "target": 4,
+      "weight": 4,
+      "conflict_reason": "Vertical elevation coupling with medical campus rooftop"
+    },
+    {
+      "source": 3,
+      "target": 4,
+      "weight": 5,
+      "conflict_reason": "Severe co-channel shadow zone in boulevard valley"
+    },
+    {
+      "source": 4,
+      "target": 5,
+      "weight": 3,
+      "conflict_reason": "Suburban fringe boundary overlap"
+    }
+  ],
+  "channel_groups": {
+    "0": {
+      "name": "Band A (1800 MHz)",
+      "color": "cyan"
+    },
+    "1": {
+      "name": "Band B (2100 MHz)",
+      "color": "purple"
+    }
+  }
+}
+
