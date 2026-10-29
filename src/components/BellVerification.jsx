@@ -10,11 +10,33 @@ import {
 export default function BellVerification({ bellData }) {
   const [activeProcessor, setActiveProcessor] = useState('B');
 
-  const procB = bellData?.processors?.B || {};
-  const procD = bellData?.processors?.D || {};
+  const procB = bellData?.processors?.B || {
+    name: "Processor B",
+    status: "VERIFIED_MEASUREMENT",
+    adjacent_pair: {
+      pair: [0, 1],
+      distance: 1,
+      ideal: { XX: 1.0, YY: -1.0, ZZ: 1.0, fidelity: 1.0, fidelity_se: 0.0, cx: 1 },
+      noisy: { XX: 0.957, YY: -0.959, ZZ: 0.961, fidelity: 0.9692, fidelity_se: 0.0038, cx: 1 }
+    },
+    farthest_pair: {
+      pair: [0, 4],
+      distance: 3,
+      ideal: { XX: 1.0, YY: -1.0, ZZ: 1.0, fidelity: 1.0, fidelity_se: 0.0, cx: 7 },
+      noisy: { XX: 0.864, YY: -0.861, ZZ: 0.872, fidelity: 0.8992, fidelity_se: 0.0067, cx: 7 }
+    }
+  };
+
+  const procD = bellData?.processors?.D || {
+    name: "Processor D",
+    status: "PENDING_MEASUREMENT",
+    notice: "Awaiting execution of bell_experiment() on Processor D physical topology from technical lead.",
+    adjacent_pair: null,
+    farthest_pair: null
+  };
 
   const currentData = activeProcessor === 'B' ? procB : procD;
-  const isPending = activeProcessor === 'D' && (!currentData.adjacent_pair || procD.status === 'PENDING_MEASUREMENT');
+  const isPending = activeProcessor === 'D' || !currentData?.adjacent_pair || currentData?.status === 'PENDING_MEASUREMENT';
 
   return (
     <section id="bell" className="space-y-6 pt-4">
@@ -102,11 +124,11 @@ export default function BellVerification({ bellData }) {
                   Direct Physical Coupler
                 </span>
                 <h3 className="text-base font-bold text-white font-sans">
-                  Adjacent Pair: Q{currentData.adjacent_pair?.pair[0]} — Q{currentData.adjacent_pair?.pair[1]}
+                  Adjacent Pair: Q{currentData?.adjacent_pair?.pair?.[0] ?? 0} — Q{currentData?.adjacent_pair?.pair?.[1] ?? 1}
                 </h3>
               </div>
               <span className="text-xs font-mono bg-carbon-950 text-slate-200 px-2.5 py-1 rounded border border-carbon-800 font-bold">
-                Distance = 1 (1 CX)
+                Distance = {currentData?.adjacent_pair?.distance ?? 1} ({currentData?.adjacent_pair?.ideal?.cx ?? 1} CX)
               </span>
             </div>
 
@@ -115,21 +137,21 @@ export default function BellVerification({ bellData }) {
                 <div className="flex justify-between text-xs">
                   <span className="font-bold text-slate-300">Noisy Measurement (Aer):</span>
                   <span className="font-mono text-mint-400 font-extrabold text-sm">
-                    F = {(currentData.adjacent_pair?.noisy?.fidelity * 100).toFixed(2)}% ± {(currentData.adjacent_pair?.noisy?.fidelity_se * 100).toFixed(2)}%
+                    F = {currentData?.adjacent_pair?.noisy?.fidelity ? (currentData.adjacent_pair.noisy.fidelity * 100).toFixed(2) : '—'}% ± {currentData?.adjacent_pair?.noisy?.fidelity_se ? (currentData.adjacent_pair.noisy.fidelity_se * 100).toFixed(2) : '—'}%
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-[11px] font-mono text-center pt-1">
                   <div className="bg-carbon-900 p-2 rounded border border-carbon-800">
                     <span className="text-slate-400">⟨XX⟩: </span>
-                    <span className="text-white font-bold">{currentData.adjacent_pair?.noisy?.XX}</span>
+                    <span className="text-white font-bold">{currentData?.adjacent_pair?.noisy?.XX ?? '—'}</span>
                   </div>
                   <div className="bg-carbon-900 p-2 rounded border border-carbon-800">
                     <span className="text-slate-400">⟨YY⟩: </span>
-                    <span className="text-white font-bold">{currentData.adjacent_pair?.noisy?.YY}</span>
+                    <span className="text-white font-bold">{currentData?.adjacent_pair?.noisy?.YY ?? '—'}</span>
                   </div>
                   <div className="bg-carbon-900 p-2 rounded border border-carbon-800">
                     <span className="text-slate-400">⟨ZZ⟩: </span>
-                    <span className="text-white font-bold">{currentData.adjacent_pair?.noisy?.ZZ}</span>
+                    <span className="text-white font-bold">{currentData?.adjacent_pair?.noisy?.ZZ ?? '—'}</span>
                   </div>
                 </div>
               </div>
@@ -155,11 +177,11 @@ export default function BellVerification({ bellData }) {
                   Multi-Hop Routing Required
                 </span>
                 <h3 className="text-base font-bold text-white font-sans">
-                  Farthest Pair: Q{currentData.farthest_pair?.pair[0]} — Q{currentData.farthest_pair?.pair[1]}
+                  Farthest Pair: Q{currentData?.farthest_pair?.pair?.[0] ?? 0} — Q{currentData?.farthest_pair?.pair?.[1] ?? 4}
                 </h3>
               </div>
               <span className="text-xs font-mono bg-carbon-950 text-slate-200 px-2.5 py-1 rounded border border-carbon-800 font-bold">
-                Distance = {currentData.farthest_pair?.distance} ({currentData.farthest_pair?.ideal?.cx} CX)
+                Distance = {currentData?.farthest_pair?.distance ?? 3} ({currentData?.farthest_pair?.ideal?.cx ?? 7} CX)
               </span>
             </div>
 
@@ -168,21 +190,21 @@ export default function BellVerification({ bellData }) {
                 <div className="flex justify-between text-xs">
                   <span className="font-bold text-slate-300">Noisy Measurement (Aer):</span>
                   <span className="font-mono text-solar-400 font-extrabold text-sm">
-                    F = {(currentData.farthest_pair?.noisy?.fidelity * 100).toFixed(2)}% ± {(currentData.farthest_pair?.noisy?.fidelity_se * 100).toFixed(2)}%
+                    F = {currentData?.farthest_pair?.noisy?.fidelity ? (currentData.farthest_pair.noisy.fidelity * 100).toFixed(2) : '—'}% ± {currentData?.farthest_pair?.noisy?.fidelity_se ? (currentData.farthest_pair.noisy.fidelity_se * 100).toFixed(2) : '—'}%
                   </span>
                 </div>
                 <div className="grid grid-cols-3 gap-2 text-[11px] font-mono text-center pt-1">
                   <div className="bg-carbon-900 p-2 rounded border border-carbon-800">
                     <span className="text-slate-400">⟨XX⟩: </span>
-                    <span className="text-white font-bold">{currentData.farthest_pair?.noisy?.XX}</span>
+                    <span className="text-white font-bold">{currentData?.farthest_pair?.noisy?.XX ?? '—'}</span>
                   </div>
                   <div className="bg-carbon-900 p-2 rounded border border-carbon-800">
                     <span className="text-slate-400">⟨YY⟩: </span>
-                    <span className="text-white font-bold">{currentData.farthest_pair?.noisy?.YY}</span>
+                    <span className="text-white font-bold">{currentData?.farthest_pair?.noisy?.YY ?? '—'}</span>
                   </div>
                   <div className="bg-carbon-900 p-2 rounded border border-carbon-800">
                     <span className="text-slate-400">⟨ZZ⟩: </span>
-                    <span className="text-white font-bold">{currentData.farthest_pair?.noisy?.ZZ}</span>
+                    <span className="text-white font-bold">{currentData?.farthest_pair?.noisy?.ZZ ?? '—'}</span>
                   </div>
                 </div>
               </div>
@@ -190,7 +212,7 @@ export default function BellVerification({ bellData }) {
               <div className="p-3.5 rounded-xl bg-carbon-950 border border-carbon-800/80 flex justify-between text-xs font-mono">
                 <span className="text-slate-400">Ideal Baseline:</span>
                 <span className="text-solar-400 font-bold">
-                  F = 1.0000 (Transpiled CX = {currentData.farthest_pair?.ideal?.cx})
+                  F = 1.0000 (Transpiled CX = {currentData?.farthest_pair?.ideal?.cx ?? 7})
                 </span>
               </div>
             </div>

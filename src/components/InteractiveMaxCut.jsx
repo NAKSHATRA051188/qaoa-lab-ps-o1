@@ -309,7 +309,7 @@ export default function InteractiveMaxCut({ instanceData }) {
                   const pos = nodePositions[id] || { x: 100, y: 100 };
                   const channel = assignment[id] ?? 0;
                   const isChannelAlpha = channel === 0;
-                  const tMeta = TRANSMITTER_LABELS[id];
+                  const tMeta = TRANSMITTER_LABELS[id] || { name: `Tx${id}`, band: '40 dBm', sector: `Sector ${id}` };
 
                   return (
                     <g
